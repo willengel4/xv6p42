@@ -48,6 +48,7 @@ argint(int n, int *ip)
   return fetchint(proc, proc->tf->esp + 4 + 4*n, ip);
 }
 
+
 // Fetch the nth word-sized system call argument as a pointer
 // to a block of memory of size n bytes.  Check that the pointer
 // lies within the process address space.
@@ -88,6 +89,7 @@ static int (*syscalls[])(void) = {
 [SYS_exec]    sys_exec,
 [SYS_exit]    sys_exit,
 [SYS_fork]    sys_fork,
+[SYS_clone]   sys_clone,
 [SYS_fstat]   sys_fstat,
 [SYS_getpid]  sys_getpid,
 [SYS_kill]    sys_kill,
@@ -101,6 +103,7 @@ static int (*syscalls[])(void) = {
 [SYS_sleep]   sys_sleep,
 [SYS_unlink]  sys_unlink,
 [SYS_wait]    sys_wait,
+[SYS_join]    sys_join,
 [SYS_write]   sys_write,
 [SYS_uptime]  sys_uptime,
 };

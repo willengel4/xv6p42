@@ -333,15 +333,18 @@ mem(void)
   ppid = getpid();
   if((pid = fork()) == 0){
     m1 = 0;
+    printf(1,"going to malloc\n");
     while((m2 = malloc(10001)) != 0){
       *(char**)m2 = m1;
       m1 = m2;
     }
+    printf(1,"going to free\n");
     while(m1){
       m2 = *(char**)m1;
       free(m1);
       m1 = m2;
     }
+    printf(1,"gong to malloc again\n");
     m1 = malloc(1024*20);
     if(m1 == 0){
       printf(1, "couldn't allocate mem?!!\n");
@@ -1493,6 +1496,7 @@ main(int argc, char *argv[])
   bigargtest();
   bsstest();
   sbrktest();
+
   validatetest();
 
   opentest();

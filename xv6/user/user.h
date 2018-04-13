@@ -2,11 +2,17 @@
 #define _USER_H_
 
 struct stat;
+typedef struct __lock_t{
+	uint flag;
+}lock_t;
 
 // system calls
+void* malloc(uint);
+int clone(void(*fcn)(void*), void*, void*);
 int fork(void);
 int exit(void) __attribute__((noreturn));
 int wait(void);
+int join(void**);
 int pipe(int*);
 int write(int, void*, int);
 int read(int, void*, int);
@@ -36,9 +42,13 @@ void printf(int, char*, ...);
 char* gets(char*, int max);
 uint strlen(char*);
 void* memset(void*, int, uint);
-void* malloc(uint);
 void free(void*);
 int atoi(const char*);
+int thread_create(void (*start_routine)(void*), void *arg);
+int thread_join();
+int lock_init(lock_t *lk);
+void lock_acquire(lock_t *lk);
+void lock_release(lock_t *lk);
 
 #endif // _USER_H_
 
